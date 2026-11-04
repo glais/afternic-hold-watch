@@ -1,0 +1,14 @@
+# Copy this file to `.dev.vars` for LOCAL testing with `wrangler dev`.
+# `.dev.vars` is git-ignored. In production these are set with `wrangler secret put` instead.
+
+AFTERNIC_API_KEY="your-afternic-api-key"
+AFTERNIC_API_SECRET="your-afternic-api-secret"
+
+TELEGRAM_BOT_TOKEN="123456789:AA..."   # from @BotFather
+TELEGRAM_CHAT_ID="123456789"           # your numeric chat id
+
+# Optional: dead-man's switch ping URL (Healthchecks.io). Strongly recommended.
+HEALTHCHECK_URL="https://hc-ping.com/your-uuid-here"
+
+# Optional: set this to enable the manual test trigger at /?run=1&token=...
+MANUAL_TRIGGER_TOKEN=""

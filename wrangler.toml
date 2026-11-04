@@ -1,0 +1,36 @@
+# wrangler.toml — Cloudflare Worker config for afternic-hold-watch
+#
+# Fill in the two placeholders below (name is optional; KV id is required),
+# then run `npm run deploy`. Everything secret (API keys, Telegram token) is set
+# with `wrangler secret put` instead — NEVER put secrets in this file.
+
+name = "afternic-hold-watch"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+
+# How often to poll Afternic. Minimum granularity is 1 minute.
+# "*/5 * * * *" = every 5 minutes — plenty responsive, and well inside every free tier.
+[triggers]
+crons = ["*/5 * * * *"]
+
+# Persistent state (the set of currently-watched-status domains) lives in Workers KV.
+# Create a namespace with:   npx wrangler kv namespace create STATE
+# then paste the printed id below.
+[[kv_namespaces]]
+binding = "STATE"
+id = "PASTE_YOUR_KV_NAMESPACE_ID_HERE"
+
+# Non-secret configuration. Change these freely, then re-deploy.
+[vars]
+WATCH_STATUS = "ON_HOLD"      # which listStatus to watch (ON_HOLD, SOLD, ACTIVE, ...)
+NOTIFY_ON_RELEASE = "false"   # also alert when a domain LEAVES the watched status
+ENRICH_WITH_SALE = "true"     # look up sale price / type to enrich alerts
+CUSTOMER_ID = "my"            # "my" = the authenticated account; leave as-is normally
+
+# Secrets are NOT listed here — set them once with wrangler (see README step 6):
+#   npx wrangler secret put AFTERNIC_API_KEY
+#   npx wrangler secret put AFTERNIC_API_SECRET
+#   npx wrangler secret put TELEGRAM_BOT_TOKEN
+#   npx wrangler secret put TELEGRAM_CHAT_ID
+#   npx wrangler secret put HEALTHCHECK_URL      # optional but recommended
+#   npx wrangler secret put MANUAL_TRIGGER_TOKEN # optional, enables ?run=1 testing

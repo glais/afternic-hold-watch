@@ -1,0 +1,17 @@
+{
+  "name": "afternic-hold-watch",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker that polls the Afternic Portfolio API and sends a Telegram alert when one of your domains goes on hold (i.e. sells or starts leasing).",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "dev:scheduled": "wrangler dev --test-scheduled",
+    "tail": "wrangler tail"
+  },
+  "devDependencies": {
+    "wrangler": "^3.90.0"
+  }
+}

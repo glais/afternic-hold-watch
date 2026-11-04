@@ -1,0 +1,14 @@
+# dependencies
+node_modules/
+
+# wrangler local state & build output
+.wrangler/
+dist/
+
+# local secrets — NEVER commit these
+.dev.vars
+.env
+
+# misc
+.DS_Store
+*.log
